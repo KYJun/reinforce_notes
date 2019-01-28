@@ -9,8 +9,6 @@
 
 ### 구성 
 
-![animation](https://storage.googleapis.com/deepmind-live-cms/documents/sc2-agent-vis%2520%25281%2529.gif)
-
 1. State
 2. Model
 3. Action
@@ -59,15 +57,15 @@
    - 처음에는 단순한 방법이 선호되지만 점차 복잡한 전략을 활용하게 된다.
 
 3. __Model Application__ 
-  1. Transformer units + LSTM core : self-attention 기법을 활용한 RNN 모델
+  - Transformer units + LSTM core : self-attention 기법을 활용한 RNN 모델
+  
+  - Auto-regressive Policy head : action의 시계열을 고려하여 현재 policy의 variablity를 줄인다. (현재 state만이 아니라 앞선 action도 조건으로 고려)
 
-  2. Auto-regressive Policy head : action의 시계열을 고려하여 현재 policy의 variablity를 줄인다. (현재 state만이 아니라 앞선 action도 조건으로 고려)
-
-  3. Pointer Network : seq2seq기반. decoder에서 encoder의 attention vector를 softmax probability로 직접 활용하는 모델 (encoder 정보를 활용하고, decoder의 vocab size 제한 문제를 해결한다.) [arxiv](https://arxiv.org/abs/1506.03134)
+  - Pointer Network : seq2seq기반. decoder에서 encoder의 attention vector를 softmax probability로 직접 활용하는 모델 (encoder 정보를 활용하고, decoder의 vocab size 제한 문제를 해결한다.) [arxiv](https://arxiv.org/abs/1506.03134)
 
      ![pointer](https://cdn-images-1.medium.com/max/800/1*ztyKI9gryzcu-26PdHGRWg.png)
 
-  4. Centralized Value baseline : actor-critic 기반. 다수의 actor가 하나의 critic과 parameter sharing을 통하여 학습한다. (A3C의 global network와 비슷)
+  - Centralized Value baseline : actor-critic 기반. 다수의 actor가 하나의 critic과 parameter sharing을 통하여 학습한다. (A3C의 global network와 비슷)
 
 4. __Supervised Model__
 
@@ -78,11 +76,11 @@
    - Ladder 강화학습의 baseline으로 이용된다.
 
 5. __Reinforcement Model__
-  1. Off-policy : Sample에 활용되는 Behavior policy와 Optimization에 적용되는 Target policy가 분리되어, 효율적 / 안정적 학습이 가능.
-  2. Actor-Critic : Policy를 결정하는 actor network와 Q-value를 계산하는 critic network가 구분, 3-4와 연동.
-  3. Experience Replay : Sampling을 통해 얻은 instance를 buffer에 저장하여, 학습에 여러 번 활용하여 선택적 / 안정적 학습이 가능하다 (off-policy와 연동)
-  4. Self-imitation Learning : 결과가 좋았던 Experience를 학습 대상으로 삼는다. (Experience Buffer에서 추출)
-  5. Policy Distillation : Teacher-Student Transfer. Teacher model의 output을 target으로 삼은 student model을 학습. [arxiv](https://arxiv.org/pdf/1511.06295.pdf)
+  - Off-policy : Sample에 활용되는 Behavior policy와 Optimization에 적용되는 Target policy가 분리되어, 효율적 / 안정적 학습이 가능.
+  - Actor-Critic : Policy를 결정하는 actor network와 Q-value를 계산하는 critic network가 구분, 3-4와 연동.
+  - Experience Replay : Sampling을 통해 얻은 instance를 buffer에 저장하여, 학습에 여러 번 활용하여 선택적 / 안정적 학습이 가능하다 (off-policy와 연동)
+  - Self-imitation Learning : 결과가 좋았던 Experience를 학습 대상으로 삼는다. (Experience Buffer에서 추출)
+  - Policy Distillation : Teacher-Student Transfer. Teacher model의 output을 target으로 삼은 student model을 학습. [arxiv](https://arxiv.org/pdf/1511.06295.pdf)
 
   ![training](https://storage.googleapis.com/deepmind-live-cms/documents/sc2-progression%2520%25281%2529.gif)
 
