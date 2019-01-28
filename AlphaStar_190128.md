@@ -1,4 +1,4 @@
-## AlphaStar
+## AlphaStar (19.Jan.28)
 ### 개요
 
 ![image](https://storage.googleapis.com/deepmind-live-cms/images/screenshot.width-1500.png)
